@@ -34,6 +34,12 @@ function configureDNSMasq {
     service dnsmasq restart
 }
 
+function startWebServer {
+    echo "Start WebServer"
+    cp /etc/openvpn/easy-rsa/keys/client.ovpn /var/www/html/
+    service webfs restart
+}
+
 function configureFirewall {
     echo "Configuring Firewall"
     curl http://winhelp2002.mvps.org/hosts.txt >> /etc/hosts
@@ -76,4 +82,5 @@ configureOpenVPN
 configureDNSMasq
 configureFirewall
 generateVPNProfile
+startWebServer
 reboot
