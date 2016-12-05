@@ -36,6 +36,7 @@ function configureDNSMasq {
 
 function startWebServer {
     echo "Start WebServer"
+    mkdir -p /var/www/html
     cp /etc/openvpn/easy-rsa/keys/client.ovpn /var/www/html/
     service webfs restart
 }
