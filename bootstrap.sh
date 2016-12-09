@@ -34,9 +34,11 @@ function configureDNSMasq {
     service dnsmasq restart
 }
 
-function startWebServer {
+function configureWebServer {
     echo "Start WebServer"
     mkdir -p /var/www/html
+    echo "application/x-openvpn-profile			ovpn" >> /etc/mime.types
+    sed -i -e 's/web_extras=""/web_extras="-b secret:secret -j"/' /etc/webfsd.conf
     cp /etc/openvpn/easy-rsa/keys/client.ovpn /var/www/html/
     service webfs restart
 }
@@ -84,5 +86,5 @@ configureOpenVPN
 configureDNSMasq
 configureFirewall
 generateVPNProfile
-startWebServer
+configureWebServer
 reboot
